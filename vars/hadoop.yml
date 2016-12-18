@@ -1,0 +1,5 @@
+hadoop_dockerfile_dir: /root/ansible-hadoop/hadoop-docker
+hadoop_master: hadoop00
+hadoop_worker:
+  - hadoop01
+  - hadoop02

@@ -1,0 +1,9 @@
+- hosts: localhost
+  vars_files:
+    - vars/hadoop.yml
+    - vars/proxy.yml
+  roles:
+    - install-docker
+    - start-master
+    - start-worker
+#    - stop-all

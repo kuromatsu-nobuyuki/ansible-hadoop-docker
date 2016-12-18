@@ -1,0 +1,11 @@
+- name: stop and remove hadoop master container
+  docker_container:
+    name: "{{ hadoop_master }}"
+    state: absent
+
+- name: stop and remove hadoop worker containers
+  docker_container:
+    name: "{{ item }}"
+    state: absent
+  with_items:
+    - "{{ hadoop_worker }}"

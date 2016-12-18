@@ -1,0 +1,14 @@
+- name: run hadoop-worker container
+  docker_container:
+    name: "{{ item }}"
+    hostname: "{{ item }}"
+    image: hadoop-docker
+    command: worker {{ hadoop_master }}
+    purge_networks: yes
+    networks:	   
+      - name: hadoop-network
+        aliases:
+          - "{{ item }}"
+    state: started
+  with_items:
+    - "{{ hadoop_worker }}"

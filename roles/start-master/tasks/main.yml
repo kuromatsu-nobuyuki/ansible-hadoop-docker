@@ -1,0 +1,20 @@
+- name: create hadoop-network
+  docker_network:
+    name: hadoop-network
+
+- name: run hadoop master container
+  docker_container:
+    name: "{{ hadoop_master }}"
+    hostname: "{{ hadoop_master }}"
+    image: hadoop-docker
+    command: master {{ hadoop_master }}
+    state: started
+    purge_networks: yes
+    networks:
+      - name: hadoop-network
+        aliases:
+          - "{{ hadoop_master }}"
+    ports:
+      - "2122:2122"
+      - "9000"
+      - "19888:19888"
