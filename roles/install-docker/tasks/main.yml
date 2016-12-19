@@ -4,14 +4,15 @@
 - name: create docker.service directory
   file: path=/etc/systemd/system/docker.service.d state=directory
 
-- name: set http proxy for docker.service.d
-  blockinfile:
-    dest: '/etc/systemd/system/docker.service.d/http-proxy.conf'
-    create: yes
-    block: |
-      [Service]
-      Environment="HTTP_PROXY={{ http_proxy }}" "HTTPS_PROXY={{ https_proxy }}"
-  register: set_docker_proxy
+# for environment behind proxy
+#- name: set http proxy for docker.service.d
+#  blockinfile:
+#    dest: '/etc/systemd/system/docker.service.d/http-proxy.conf'
+#    create: yes
+#    block: |
+#      [Service]
+#      Environment="HTTP_PROXY={{ http_proxy }}" "HTTPS_PROXY={{ https_proxy }}"
+#  register: set_docker_proxy
   
 - name: start docker.
   systemd: name=docker.service enabled=yes daemon_reload=yes state=restarted
@@ -25,8 +26,8 @@
     path: "{{ hadoop_dockerfile_dir }}"
     name: hadoop-docker
     state: present
-    buildargs:
-      http_proxy: "{{ http_proxy }}"
-      https_proxy: "{{ https_proxy }}"
+#    buildargs:
+#      http_proxy: "{{ http_proxy }}"
+#      https_proxy: "{{ https_proxy }}"
 
 
